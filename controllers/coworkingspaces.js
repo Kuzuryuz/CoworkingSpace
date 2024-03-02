@@ -78,19 +78,17 @@ exports.getCoworkingSpaces=async(req,res,next)=>{
 //@route GET /api/v1/coworkingspaces/:id
 //@access Public
 exports.getCoworkingSpace= async(req,res,next)=>{
-try{
-    const coworkingspace = await CoworkingSpace.findById(req.params.id);
+    try{
+        const coworkingspace = await CoworkingSpace.findById(req.params.id);
 
-    if(!coworkingspace) {
-        return res.status(400).json({success:false});
+        if(!coworkingspace) {
+            return res.status(400).json({success:false});
+        }
+        res.status(200).json({success:true,data:coworkingspace});
     }
-    res.status(200).json({success:true,data:coworkingspace});
-}
-catch(err){
-    res.status(400).json({success:false});
-}
-
-    
+    catch(err){
+        res.status(400).json({success:false});
+    }
 };
 
 
