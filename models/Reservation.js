@@ -1,18 +1,22 @@
 const mongoose = require('mongoose');
 
 const ReservationSchema = new mongoose.Schema({
-    reserveDate: {
+    reserveStartTime: {
+        type: Date,
+        required: true
+    },
+    reserveEndTime: {
         type: Date,
         required: true
     },
     user: {
         type: mongoose.Schema.ObjectId,
-        ref: 'User',
+        ref: 'user',
         required: true
     },
     coworkingspace: {
         type: mongoose.Schema.ObjectId,
-        ref: 'CoworkingSpace',
+        ref: 'coworkingspace',
         required: true
     },
     createAt: {

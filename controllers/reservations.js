@@ -15,10 +15,17 @@ exports.getReservations = async (req, res, next) => {
         });
     } else {
         // If you are admin, you can see all
-        query = Reservation.find().populate({
-            path: 'coworkingspace',
-            select: 'name address tel opentime closetime'
-        });
+        if (req.params.coworkingspaceId) {
+            query = Reservation.find({coworkingspace: req.params.coworkingspaceId}).populate({
+                path: 'coworkingspace',
+                select: 'name address tel opentime closetime'
+            });
+        } else {
+            query = Reservation.find().populate({
+                path: 'coworkingspace',
+                select: 'name address tel opentime closetime'
+            });
+        }
     }
 
     try {
