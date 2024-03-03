@@ -49,10 +49,10 @@ app.use(hpp());
 //Enable CORS
 app.use(cors());
 
-app.use('/api/v1/coworkingspaces', coworkingspaces);
-app.use('/api/v1/auth', auth);
-app.use('/api/v1/reservations', reservations);
-app.use('/api/v1/users', users);
+app.use('/api/coworkingspaces', coworkingspaces);
+app.use('/api/auth', auth);
+app.use('/api/reservations', reservations);
+app.use('/api/users', users);
 
 //Cookie parser
 app.use(cookieParser());

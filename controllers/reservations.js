@@ -86,7 +86,35 @@ exports.addReservation = async (req, res, next) => {
         if (existedReservations.length >= 3 && req.user.role !== 'admin') {
             return res.status(400).json({success: false, message: `The user with ID ${req.user.id} has already made 3 reservations`});
         }
+
+        // Check validation of reservation's time
+        let reserveStartTime = new Date(req.body.reserveStartTime);
+        let reserveEndTime = new Date(req.body.reserveEndTime);
+        let reserveStartDate = reserveStartTime.toISOString().slice(0, 10);
+        let reserveEndDate = reserveEndTime.toISOString().slice(0, 10);
+        let coworkingOpenTime = new Date(reserveStartDate + 'T' + coworkingspace.opentime + ':00.000Z');
+        let coworkingCloseTime = new Date(reserveEndDate + 'T' + coworkingspace.closetime + ':00.000Z');
+
+            // Check if it's the same date
+            if (reserveStartDate !== reserveEndDate) {
+                return res.status(405).json({success: false, message: 'The reservation start time and end time must be in the same date.'});
+            }
         
+            // Check if end time occurs after start time
+            if (reserveEndTime.getTime() <= reserveStartTime.getTime()) {
+                return res.status(405).json({success: false, message: 'The reservation end time must occurs after start time.'});
+            }
+
+            // Check if reservation time in co-working space's openning hours
+            if (reserveStartTime.getTime() < coworkingOpenTime.getTime() || reserveEndTime.getTime() > coworkingCloseTime.getTime()) {
+                return res.status(405).json({success: false, message: `The reservation time must be in co-working space's openning hours`});
+            }
+
+            // Check if reservation is not more than 2 hours
+            if (reserveEndTime.getTime() - reserveStartTime.getTime() > 2 * 60 * 60 * 1000) {
+                return res.status(405).json({success: false, message: `The reservation must not more than 2 hours`});
+            }
+
         const reservation = await Reservation.create(req.body);
 
         res.status(200).json({success: true, data: reservation});
