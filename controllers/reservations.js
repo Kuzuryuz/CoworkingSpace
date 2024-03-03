@@ -140,6 +140,36 @@ exports.updateReservation = async (req, res, next) => {
             return res.status(401).json({success: false, message: `User ${req.user.id} is not authorized to update this reservation`});
         }
 
+        // Check validation of reservation's time
+        const coworkingspace = await CoworkingSpace.findById(reservation.coworkingspace);
+
+        let reserveStartTime = new Date(req.body.reserveStartTime || reservation.reserveStartTime);
+        let reserveEndTime = new Date(req.body.reserveEndTime || reservation.reserveEndTime);
+        let reserveStartDate = reserveStartTime.toISOString().slice(0, 10);
+        let reserveEndDate = reserveEndTime.toISOString().slice(0, 10);
+        let coworkingOpenTime = new Date(reserveStartDate + 'T' + coworkingspace.opentime + ':00.000Z');
+        let coworkingCloseTime = new Date(reserveEndDate + 'T' + coworkingspace.closetime + ':00.000Z');
+
+            // Check if it's the same date
+            if (reserveStartDate !== reserveEndDate) {
+                return res.status(405).json({success: false, message: 'The reservation start time and end time must be in the same date.'});
+            }
+        
+            // Check if end time occurs after start time
+            if (reserveEndTime.getTime() <= reserveStartTime.getTime()) {
+                return res.status(405).json({success: false, message: 'The reservation end time must occurs after start time.'});
+            }
+
+            // Check if reservation time in co-working space's openning hours
+            if (reserveStartTime.getTime() < coworkingOpenTime.getTime() || reserveEndTime.getTime() > coworkingCloseTime.getTime()) {
+                return res.status(405).json({success: false, message: `The reservation time must be in co-working space's openning hours`});
+            }
+
+            // Check if reservation is not more than 2 hours
+            if (reserveEndTime.getTime() - reserveStartTime.getTime() > 2 * 60 * 60 * 1000) {
+                return res.status(405).json({success: false, message: `The reservation must not more than 2 hours`});
+            }
+
         reservation = await Reservation.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
             runValidators: true
