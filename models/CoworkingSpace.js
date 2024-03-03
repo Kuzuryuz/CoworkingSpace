@@ -20,18 +20,9 @@ const CoworkingSpaceSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please add a province']
     },
-    postalcode: {
-        type: String,
-        required: [true, 'Please add a postal code'],
-        maxlength: [5, 'Postal Code can not be more than 5 digits']
-    },
     tel: {
         type: String,
         required: [true, 'Please add a telephone number']
-    },
-    region: {
-        type: String,
-        required: [true, 'Please add a region']
     },
     opentime:{
         type: String,
