@@ -1,7 +1,7 @@
 const User = require('../models/User');
 
 //@desc     Register user
-//@route    POST /api/v1/auth/register
+//@route    POST /api/auth/register
 //@access   Public
 exports.register = async (req, res, next) => {
     try {
@@ -28,7 +28,7 @@ exports.register = async (req, res, next) => {
 };
 
 //@desc     Login user
-//@route    POST /api/v1/auth/login
+//@route    POST /api/auth/login
 //@access   Public
 exports.login = async(req,res,next)=>{
     try{
@@ -78,7 +78,7 @@ const sendTokenResponse = (user, statusCode, res) => {
 };
 
 //@desc     Get current Logged in user
-//@route    POST /api/v1/auth/me
+//@route    POST /api/auth/me
 //@access   Private
 exports.getMe = async (req, res, next) => {
     const user = await User.findById(req.user.id);
@@ -86,7 +86,7 @@ exports.getMe = async (req, res, next) => {
 };
 
 //@desc     Log user out / clear cookie
-//@route    GET /api/v1/auth/logout
+//@route    GET /api/auth/logout
 //@access   Private
 exports.logout = async (req, res, next) => {
     res.cookie('token', 'none', {

@@ -2,7 +2,7 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 
 //@desc     Get all users
-//@route    GET /api/v1/users
+//@route    GET /api/users
 //@access   Private
 exports.getUsers = async (req, res, next) => {
     try {
@@ -15,7 +15,7 @@ exports.getUsers = async (req, res, next) => {
 };
 
 //@desc     Update current login user
-//@route    PUT /api/v1/users
+//@route    PUT /api/users
 //@access   Private
 exports.updateCurrentUser = async (req, res, next) => {
     try {
@@ -49,7 +49,7 @@ exports.updateCurrentUser = async (req, res, next) => {
 };
 
 //@desc     Update user by id
-//@route    PUT /api/v1/users/:id
+//@route    PUT /api/users/:id
 //@access   Private
 exports.updateUserByID = async (req, res, next) => {
     try {
@@ -84,7 +84,7 @@ exports.updateUserByID = async (req, res, next) => {
 };
 
 //@desc     Delete current user
-//@route    DELETE /api/v1/users
+//@route    DELETE /api/users
 //@access   Private
 exports.deleteCurrentUser = async (req, res, next) => {
     try {
@@ -106,7 +106,7 @@ exports.deleteCurrentUser = async (req, res, next) => {
 
 
 //@desc     Delete user by ID
-//@route    DELETE /api/v1/users/:id
+//@route    DELETE /api/users/:id
 //@access   Private
 exports.deleteUserByID = async (req, res, next) => {
     try {

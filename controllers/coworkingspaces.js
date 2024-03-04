@@ -1,7 +1,7 @@
 const CoworkingSpace = require('../models/CoworkingSpace.js');
 
 //@desc Get all coworkingspaces
-//@route GET /api/v1/coworkingspaces
+//@route GET /api/coworkingspaces
 //@access Public
 exports.getCoworkingSpaces=async(req,res,next)=>{
     let query;
@@ -75,7 +75,7 @@ exports.getCoworkingSpaces=async(req,res,next)=>{
 
 
 //@desc Get single coworkingspace
-//@route GET /api/v1/coworkingspaces/:id
+//@route GET /api/coworkingspaces/:id
 //@access Public
 exports.getCoworkingSpace= async(req,res,next)=>{
     try{
@@ -93,7 +93,7 @@ exports.getCoworkingSpace= async(req,res,next)=>{
 
 
 //@desc Create a coworkingspace
-//@route POST /api/v1/coworkingspaces
+//@route POST /api/coworkingspaces
 //@access Private
 exports.createCoworkingSpace=async(req,res,next)=>{
     const coworkingspace = await CoworkingSpace.create(req.body);
@@ -101,7 +101,7 @@ exports.createCoworkingSpace=async(req,res,next)=>{
 }
 
 //@desc Update a coworkingspace
-//@route PUT /api/v1/coworkingspaces/:id
+//@route PUT /api/coworkingspaces/:id
 //@access Private
 exports.updateCoworkingSpace=async(req,res,next)=>{
     try{
@@ -121,7 +121,7 @@ exports.updateCoworkingSpace=async(req,res,next)=>{
 };
 
 //@desc delete a coworkingspace
-//@route DELETE /api/v1/coworkingspaces/:id
+//@route DELETE /api/coworkingspaces/:id
 //@access Private
 exports.deleteCoworkingSpace = async(req,res,next)=>{
     try{

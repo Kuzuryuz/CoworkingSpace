@@ -2,7 +2,7 @@ const Reservation = require('../models/Reservation');
 const CoworkingSpace = require('../models/CoworkingSpace');
 
 //@desc     Get all reservations
-//@route    GET /api/v1/reservations
+//@route    GET /api/reservations
 //@access   Public
 exports.getReservations = async (req, res, next) => {
     let query;
@@ -43,7 +43,7 @@ exports.getReservations = async (req, res, next) => {
 };
 
 //@desc     Get single reservation
-//@route    GET /api/v1/reservations/:id
+//@route    GET /api/reservations/:id
 //@access   Public
 exports.getReservation = async (req, res, next) => {
     try {
@@ -64,7 +64,7 @@ exports.getReservation = async (req, res, next) => {
 };
 
 //@desc     Add reservation
-//@route    POST /api/v1/coworkingspaces/:coworkingspaceId/reservations
+//@route    POST /api/coworkingspaces/:coworkingspaceId/reservations
 //@access   Private
 exports.addReservation = async (req, res, next) => {
     try {
@@ -125,7 +125,7 @@ exports.addReservation = async (req, res, next) => {
 };
 
 //@desc     Update reservation
-//@route    PUT /api/v1/reservations/:id
+//@route    PUT /api/reservations/:id
 //@access   Private
 exports.updateReservation = async (req, res, next) => {
     try {
@@ -183,7 +183,7 @@ exports.updateReservation = async (req, res, next) => {
 };
 
 //@desc     Delete reservation
-//@route    DELETE /api/v1/reservations/:id
+//@route    DELETE /api/reservations/:id
 //@access   Private
 exports.deleteReservation = async (req, res, next) => {
     try {
